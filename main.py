@@ -322,7 +322,7 @@ async def txt_handler(bot: Client, m: Message):
         os.remove(x)
         return
    
-    await editable.edit(f"<pre><code>Total 🔗 links found are {len(links)}\nSend From where you want to download initial is 1</code></pre>")
+    await editable.edit(f"<pre><code>Total 🔗 links found are {len(links)}\nSend From where you want to download</code></pre>")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
     await input0.delete(True)
@@ -609,7 +609,7 @@ async def txt_handler(bot: Client, m: Message):
     await m.reply_text("<pre><code>⌈✨Total Failed link『』{failed_count}✨⌋</code></pre>")
     await m.reply_text("<pre><code>Downloaded By ⌈✨『𝙎𝘼𝙄𝙉𝙄 𝘽𝙊𝙏𝙎』✨⌋</code></pre>")
 
-@bot.on_message(filters.command(["cpdrm"]) )
+@bot.on_message(filters.command(["cp"]) )
 async def txt_handler(bot: Client, m: Message):
     editable = await m.reply_text(f"<pre><code>🔹Hi I am Poweful CP stream📥 Bot.\n🔹Send me the TXT file and wait.</code></pre>")
     input: Message = await bot.listen(editable.chat.id)
@@ -631,13 +631,12 @@ async def txt_handler(bot: Client, m: Message):
         return
 
     await editable.delete(True)
-    await m.reply_text(f"**Total 🔗 links found are {len(links)}**\n"
-    target_message = f"🎯Target Batch : {b_name}"
-    await m.reply_text(f"<pre><code>{target_message}</code></pre>")
-
+    b_name = file_name
+    await m.reply_text(f"<pre><code>🎯Target Batch : {b_name}</code></pre>")  
+    
     arg = 1
-    count =int(raw_text)    
-    try:
+    count = 1   
+    try: 
         for i in range(arg-1, len(links)):
             Vxy = links[i][1].replace("file/d/","uc?export=download&id=").replace("www.youtube-nocookie.com/embed", "youtu.be").replace("?modestbranding=1", "").replace("/view?usp=sharing","")
             url = "https://" + Vxy
@@ -648,8 +647,8 @@ async def txt_handler(bot: Client, m: Message):
             name = f'{name1[:60]}'
 
             try:  
-                cccp = f'——— ✨ [{str(count).zfill(3)}]({link0}) ✨ ———\n\n📔𝐓𝐢𝐭𝐥𝐞 » `{name1}.mp4`\n\n<a href="{urlcp}">__**Click Here to Watch Stream**__</a>\n\n<pre><code>📚 Course : {file_name}</code></pre>\n'
-                cc1 = f'——— ✨ [{str(count).zfill(3)}]({link0}) ✨ ———\n\n📔𝐓𝐢𝐭𝐥𝐞 » `{name1}.pdf`\n\n<a href="{link0}">__**Click Here to Download**__</a>\n\n<pre><code>📚 Course : {file_name}</code></pre>\n'
+                cccp = f'——— ✨ [{str(count).zfill(3)}]({link0}) ✨ ———\n\n📔𝐓𝐢𝐭𝐥𝐞 » `{name1}.mp4`\n\n<a href="{urlcp}">__**Click Here to Watch Stream**__</a>\n\n<pre><code>📚 Course : {b_name}</code></pre>\n'
+                cc1 = f'——— ✨ [{str(count).zfill(3)}]({link0}) ✨ ———\n\n📔𝐓𝐢𝐭𝐥𝐞 » `{name1}.pdf`\n\n<a href="{link0}">__**Click Here to Download**__</a>\n\n<pre><code>📚 Course : {b_name}</code></pre>\n'
                 
                 if ".pdf" in url or "drive" in url:
                     try:
@@ -660,7 +659,7 @@ async def txt_handler(bot: Client, m: Message):
                         time.sleep(1)    
                         continue         
 
-                elif "classplusapp.com" in url or "youtu" in url
+                elif "classplusapp.com" in url or "youtu" in url:
                     try:
                         await bot.send_photo(chat_id=m.chat.id, photo=photocp, caption=cccp)
                         count +=1
